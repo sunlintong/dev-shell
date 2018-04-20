@@ -1,4 +1,4 @@
-me=`kubectl get pod -n ekos-plugin | grep ekos-tenant-server | awk '{print $1}'`
+name=`kubectl get pod -n ekos-plugin | grep ekos-tenant-server | awk '{print $1}'`
 docker load -i tenant.tar
 rm tenant.tar
 docker push registry.ekos.local/ekos/tenant
