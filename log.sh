@@ -1,6 +1,9 @@
-name=`kubectl get pod -n ekos-plugin | grep ekos-log-server | awk '{print $1}'`
-docker load -i log.tar
-rm log.tar
-docker push registry.ekos.local/ekos/log
-kubectl delete pod $name -n ekos-plugin
-kubectl get pod -n ekos-plugin | grep log
+#!/bin/bash
+if [ $# = 0 ]; then
+	name="paas"
+else
+	name=$1
+fi
+
+pname=`kubectl get pod -n ekos-plugin | grep ekos-$name-server | awk '{print $1}'`
+kubectl logs -f $pname -n ekos-plugin
